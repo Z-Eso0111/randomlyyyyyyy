@@ -1,0 +1,38 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+-- GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "BlockInfoGui"
+
+local frame = Instance.new("Frame")
+frame.Name = "Frame"
+frame.Size = UDim2.new(0, 181, 0, 100)
+frame.Position = UDim2.new(0.852, 0, 0.221, 0)
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+local label = Instance.new("TextLabel")
+label.Name = "Label"
+label.Size = UDim2.new(0, 160, 0, 50)
+label.Position = UDim2.new(0.055, 0, 0.25, 0)
+label.BackgroundColor3 = Color3.new(0, 0, 0)
+label.TextColor3 = Color3.new(1, 1, 1)
+label.Text = ""
+label.Parent = frame
+
+gui.Enabled = false
+gui.Parent = player.PlayerGui
+
+-- Event
+mouse.Move:Connect(function()
+    local part = mouse.Target
+    if part and part:IsA("BasePart") then
+        label.Text = "Block Name: "..part.Name
+        gui.Enabled = true
+    else
+        label.Text = ""
+        gui.Enabled = false
+    end
+end)
